@@ -1,0 +1,43 @@
+system-view
+sysname AR4
+#
+interface GigabitEthernet0/0/1
+ ip address 201.1.1.2 255.255.255.252
+quit
+#
+interface Eth-Trunk1
+ mode lacp-static
+quit
+interface GigabitEthernet0/0/0
+ eth-trunk 1
+quit
+interface GigabitEthernet0/0/2
+ eth-trunk 1
+quit
+#
+interface Eth-Trunk1.10
+ dot1q termination vid 10
+ ip address 192.168.110.254 255.255.255.0
+ arp broadcast enable
+quit
+interface Eth-Trunk1.20
+ dot1q termination vid 20
+ ip address 192.168.120.254 255.255.255.0
+ arp broadcast enable
+quit
+interface Eth-Trunk1.30
+ dot1q termination vid 30
+ ip address 192.168.130.254 255.255.255.0
+ arp broadcast enable
+quit
+#
+acl number 2000
+ rule 5 permit source 192.168.0.0 0.0.255.255
+quit
+interface GigabitEthernet0/0/1
+ nat outbound 2000
+quit
+#
+ip route-static 0.0.0.0 0.0.0.0 201.1.1.1
+#
+return

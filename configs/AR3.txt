@@ -1,0 +1,18 @@
+system-view
+sysname AR3
+#
+interface GigabitEthernet0/0/0
+ ip address 100.2.1.2 255.255.255.252
+quit
+interface GigabitEthernet0/0/2
+ ip address 201.1.1.1 255.255.255.252
+quit
+#
+ospf 1 router-id 3.3.3.3
+ area 0.0.0.0
+  network 100.2.1.0 0.0.0.3
+  network 201.1.1.0 0.0.0.3
+ quit
+quit
+#
+return

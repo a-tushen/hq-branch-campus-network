@@ -1,0 +1,59 @@
+system-view
+sysname LSW2
+#
+vlan batch 10 20 30 40 50 99 100
+#
+stp region-configuration
+ region-name HQ
+ instance 1 vlan 10 30
+ instance 2 vlan 20
+ active region-configuration
+quit
+#
+interface GigabitEthernet0/0/1
+ port link-type access
+ port default vlan 50
+quit
+interface GigabitEthernet0/0/2
+ port link-type access
+ port default vlan 50
+quit
+interface GigabitEthernet0/0/3
+ port link-type access
+ port default vlan 40
+quit
+interface GigabitEthernet0/0/4
+ port link-type trunk
+ port trunk allow-pass vlan 10 20 30 99
+quit
+interface GigabitEthernet0/0/6
+ port link-type trunk
+ port trunk allow-pass vlan 10 20 30 99
+quit
+interface GigabitEthernet0/0/5
+ port link-type access
+ port default vlan 100
+quit
+#
+interface Vlanif40
+ ip address 192.168.40.254 255.255.255.0
+quit
+interface Vlanif50
+ ip address 192.168.50.254 255.255.255.0
+quit
+interface Vlanif99
+ ip address 10.99.0.1 255.255.255.0
+quit
+interface Vlanif100
+ ip address 10.0.0.2 255.255.255.252
+quit
+#
+ip route-static 192.168.10.0 255.255.255.0 10.99.0.3
+ip route-static 192.168.30.0 255.255.255.0 10.99.0.3
+ip route-static 192.168.20.0 255.255.255.0 10.99.0.4
+ip route-static 192.168.10.0 255.255.255.0 10.99.0.4 preference 70
+ip route-static 192.168.30.0 255.255.255.0 10.99.0.4 preference 70
+ip route-static 192.168.20.0 255.255.255.0 10.99.0.3 preference 70
+ip route-static 0.0.0.0 0.0.0.0 10.0.0.1
+#
+return

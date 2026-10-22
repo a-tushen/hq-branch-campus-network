@@ -1,0 +1,18 @@
+system-view
+sysname AR1
+#
+interface GigabitEthernet0/0/0
+ ip address 200.1.1.2 255.255.255.252
+quit
+interface GigabitEthernet0/0/1
+ ip address 100.1.1.1 255.255.255.252
+quit
+#
+ospf 1 router-id 1.1.1.1
+ area 0.0.0.0
+  network 200.1.1.0 0.0.0.3
+  network 100.1.1.0 0.0.0.3
+ quit
+quit
+#
+return

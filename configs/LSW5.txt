@@ -1,0 +1,34 @@
+system-view
+sysname LSW5
+#
+vlan batch 10 20 30
+#
+interface Eth-Trunk1
+ mode lacp-static
+ port link-type trunk
+ port trunk allow-pass vlan 10 20 30
+quit
+interface GigabitEthernet0/0/1
+ eth-trunk 1
+quit
+interface GigabitEthernet0/0/2
+ eth-trunk 1
+quit
+#
+interface GigabitEthernet0/0/3
+ port link-type access
+ port default vlan 10
+ stp edged-port enable
+quit
+interface GigabitEthernet0/0/4
+ port link-type access
+ port default vlan 20
+ stp edged-port enable
+quit
+interface GigabitEthernet0/0/5
+ port link-type access
+ port default vlan 30
+ stp edged-port enable
+quit
+#
+return

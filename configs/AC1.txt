@@ -1,0 +1,36 @@
+system-view
+sysname AC1
+#
+vlan batch 50
+#
+interface GigabitEthernet0/0/1
+ port link-type access
+ port default vlan 50
+quit
+interface Vlanif50
+ ip address 192.168.50.11 255.255.255.0
+quit
+#
+ip route-static 0.0.0.0 0.0.0.0 192.168.50.254
+#
+capwap source interface Vlanif50
+#
+wlan
+ security-profile name HQ-PSK
+  security wpa-wpa2 psk pass-phrase Huawei@123 aes
+ quit
+ ssid-profile name HQ-SSID
+  ssid HQ-WLAN
+ quit
+ vap-profile name HQ-VAP
+  service-vlan vlan-id 30
+  ssid-profile HQ-SSID
+  security-profile HQ-PSK
+ quit
+ ap-group name default
+  vap-profile HQ-VAP wlan 1 radio all
+ quit
+ ap auth-mode no-auth
+quit
+#
+return

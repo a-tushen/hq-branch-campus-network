@@ -1,0 +1,32 @@
+system-view
+sysname DHCP
+#
+dhcp enable
+#
+ip pool vlan10
+ network 192.168.10.0 mask 255.255.255.0
+ gateway-list 192.168.10.254
+ dns-list 114.114.114.114
+ excluded-ip-address 192.168.10.252 192.168.10.253
+quit
+ip pool vlan20
+ network 192.168.20.0 mask 255.255.255.0
+ gateway-list 192.168.20.254
+ dns-list 114.114.114.114
+ excluded-ip-address 192.168.20.252 192.168.20.253
+quit
+ip pool vlan30
+ network 192.168.30.0 mask 255.255.255.0
+ gateway-list 192.168.30.254
+ dns-list 114.114.114.114
+ excluded-ip-address 192.168.30.252 192.168.30.253
+quit
+#
+interface GigabitEthernet0/0/0
+ ip address 192.168.50.10 255.255.255.0
+ dhcp select global
+quit
+#
+ip route-static 0.0.0.0 0.0.0.0 192.168.50.254
+#
+return

@@ -1,0 +1,26 @@
+system-view
+sysname LSW6
+#
+vlan batch 200
+#
+interface GigabitEthernet0/0/1
+ port link-type access
+ port default vlan 200
+quit
+interface GigabitEthernet0/0/2
+ port link-type access
+ port default vlan 200
+ stp edged-port enable
+quit
+interface GigabitEthernet0/0/3
+ port link-type access
+ port default vlan 200
+ stp edged-port enable
+quit
+interface GigabitEthernet0/0/4
+ port link-type access
+ port default vlan 200
+ stp edged-port enable
+quit
+#
+return

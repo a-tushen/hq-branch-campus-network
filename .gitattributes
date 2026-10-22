@@ -1,0 +1,9 @@
+# 统一按文本处理，由 Git 自动识别换行
+* text=auto
+
+# eNSP 拓扑文件是 CRLF 的 XML，不要让 Git 改写换行
+*.topo -text
+
+# 图片按二进制处理
+*.png binary
+*.jpg binary

@@ -1,0 +1,37 @@
+system-view
+sysname LSW1
+#
+vlan batch 10 20 30
+#
+stp region-configuration
+ region-name HQ
+ instance 1 vlan 10 30
+ instance 2 vlan 20
+ active region-configuration
+quit
+#
+interface GigabitEthernet0/0/1
+ port link-type trunk
+ port trunk allow-pass vlan 10 20 30
+quit
+interface GigabitEthernet0/0/2
+ port link-type trunk
+ port trunk allow-pass vlan 10 20 30
+quit
+interface GigabitEthernet0/0/3
+ port link-type access
+ port default vlan 10
+ stp edged-port enable
+quit
+interface GigabitEthernet0/0/4
+ port link-type access
+ port default vlan 20
+ stp edged-port enable
+quit
+interface GigabitEthernet0/0/5
+ port link-type access
+ port default vlan 30
+ stp edged-port enable
+quit
+#
+return

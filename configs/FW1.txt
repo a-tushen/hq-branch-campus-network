@@ -1,0 +1,46 @@
+system-view
+sysname FW1
+#
+interface GigabitEthernet1/0/0
+ ip address 10.0.0.1 255.255.255.252
+ service-manage ping permit
+quit
+interface GigabitEthernet1/0/1
+ ip address 200.1.1.1 255.255.255.252
+ service-manage ping permit
+quit
+#
+firewall zone trust
+ add interface GigabitEthernet1/0/0
+quit
+firewall zone untrust
+ add interface GigabitEthernet1/0/1
+quit
+#
+ip route-static 0.0.0.0 0.0.0.0 200.1.1.2
+ip route-static 192.168.0.0 255.255.0.0 10.0.0.2
+ip route-static 10.99.0.0 255.255.255.0 10.0.0.2
+#
+acl number 2000
+ rule 5 permit source 192.168.0.0 0.0.255.255
+quit
+interface GigabitEthernet1/0/1
+ nat outbound 2000
+quit
+#
+nat server web_server protocol tcp global 200.1.1.10 80 inside 192.168.40.10 80
+#
+security-policy
+ rule name trust_to_untrust
+  source-zone trust
+  destination-zone untrust
+  action permit
+ rule name branch_to_hq_server
+  source-zone untrust
+  destination-zone trust
+  destination-address 192.168.40.10 mask 255.255.255.255
+  service http
+  action permit
+quit
+#
+return
