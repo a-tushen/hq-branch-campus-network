@@ -1,34 +1,36 @@
-# 运行截图
+# 验证证据图
 
-此目录用于存放 eNSP 中的**运行证据截图**。目前为空，建议补齐下面 6 张——
-一张有设备指示灯全绿的拓扑截图，比十行文字更能证明"这东西真的跑起来了"。
+本目录存放两类图片，**性质不同，请注意区分**：
 
-## 建议截图清单
-
-| 文件名 | 内容 | 怎么截 |
+| 文件 | 性质 | 说明 |
 |---|---|---|
-| `01-topology-running.png` | 拓扑全景，所有设备图标为绿色（已启动） | eNSP 画布全屏，Win+Shift+S |
-| `02-vrrp-master.png` | LSW3 与 LSW4 的 VRRP 主备状态对比 | 两个 CLI 窗口并排，各执行 `display vrrp` |
-| `03-dhcp-ipconfig.png` | PC1 与 PC2 自动获取到地址 | 两台 PC 的「命令行」页签并排 |
-| `04-nat-server.png` | 公网侧 PC5 浏览器打开 `http://200.1.1.10` | 浏览器地址栏与页面内容一起截 |
-| `05-eth-trunk.png` | 分支聚合链路两成员口 Selected | AR4 / LSW5 执行 `display eth-trunk 1` |
-| `06-tracert-branch.png` | 分支网关确实在路由器上 | PC3 执行 `tracert 8.8.8.8`，第一跳为 192.168.110.254 |
+| `01-topology-schematic.png` | 示意图 | 按拓扑绘制的结构图，用于说明连接关系（**不是** eNSP 截图） |
+| `02-vrrp-master.png` | **真实回显** | LSW3 上 `display vrrp` 的原始输出 |
+| `03-dhcp-pool.png` | **真实回显** | DHCP 服务器上 `display ip pool` 的输出 |
+| `04-eth-trunk.png` | **真实回显** | AR4 上 `display eth-trunk 1` 与子接口状态 |
+| `05-ping.png` | **真实回显** | AR4 ping 分支终端的连通性结果 |
+| `06-nat-server.png` | **真实回显** | FW1 的 NAT Server 配置、安全域与接口地址 |
 
-## 命名与提交要求
+## 02–06 是怎么来的
 
-- 统一 `01-`、`02-` 前缀，便于 README 按序引用；
-- PNG 格式，宽度建议 1600px 左右，单张控制在 500KB 内（过大的图先压缩）；
-- 截图中**不要出现与本机相关的信息**（如主机名、真实 IP、桌面其他文件）。
+不是手工截图，而是脚本通过 **eNSP 为每台设备开放的控制台端口**（TCP 2000–2013）
+登录设备、执行命令、原样读取回显，再把文本按终端样式渲染成图片。
 
-## 截好后在 README 里引用
+- 采集脚本见仓库外的 `tools_pull/collect_evidence.py`（属于实验工具，未入库）
+- 采集到的**纯文本原文**保存在 [`../验证输出.md`](../验证输出.md)，可与图片逐字对照
 
-在 `README.md` 的「验证结果」一节下方加一段：
+这样做的原因：eNSP 的 CLI 窗口位于 GUI 内部，批量截图需要人工逐台点击；
+而控制台端口本质是"串口转 TCP"，脚本可直接读写，采集到的文本比截图更可核验。
 
-```markdown
-### 运行截图
+## 若你想补充真正的 eNSP 界面截图
 
-![拓扑运行状态](docs/screenshots/01-topology-running.png)
-![VRRP 主备](docs/screenshots/02-vrrp-master.png)
-```
+在 eNSP 中打开设备 CLI 窗口，按 `Win + Shift + S` 截图，按下面命名放入本目录即可，
+README 中已预留引用位置：
 
-注意：默认的 `.gitignore` 不会忽略 PNG，截图会正常入库。
+| 建议文件名 | 内容 |
+|---|---|
+| `07-ensp-canvas.png` | eNSP 画布全景，设备图标全部变绿 |
+| `08-pc-ipconfig.png` | PC1 执行 `ipconfig` 拿到 192.168.10.x |
+| `09-browser-nat.png` | PC5 浏览器打开 `http://200.1.1.10` |
+
+注意截图中不要出现主机名、真实 IP、桌面其他文件等与本机相关的信息。

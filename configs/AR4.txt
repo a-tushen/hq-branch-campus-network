@@ -6,6 +6,7 @@ interface GigabitEthernet0/0/1
 quit
 #
 interface Eth-Trunk1
+ undo portswitch
  mode lacp-static
 quit
 interface GigabitEthernet0/0/0

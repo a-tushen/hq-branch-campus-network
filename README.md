@@ -30,7 +30,7 @@
 | 二层环路消除且不绕行 | **MSTP 多实例**：实例1（VLAN10/30）根桥 LSW3，实例2（VLAN20）根桥 LSW4，与 VRRP 主备严格对齐 | LSW1/2/3/4 同域 `HQ` |
 | 终端地址集中下发 | **独立 DHCP 服务器 + 网关 DHCP 中继**；地址池网关填 VRRP 虚拟地址，主机切换对终端透明 | DHCP / LSW3 / LSW4 |
 | 内网服务器对外发布 | 防火墙 **NAT Server**：`200.1.1.10:80 → 192.168.40.10:80`，仅放行 TCP 80 | FW1 |
-| 内网访问互联网 | 防火墙 **源 NAT（Easy-IP）** + 域间安全策略 | FW1 |
+| 内网与互联网互通 | 本镜像的 USG5500 不支持源 NAT（`nat outbound`），改由 ISP 侧三条回程静态路由打通，详见 docs/排错记录.md 问题七 | FW1 + AR1/AR2/AR3 |
 | 分支网关下沉 | AR4 在 Eth-Trunk 上起 **dot1q 子接口**，三个 VLAN 网关直接在路由器上 | AR4 |
 | 分支上行备份 | AR4 ↔ LSW5 之间 **LACP 链路聚合**（双成员口），带宽叠加且单链路故障不断网 | AR4 / LSW5 |
 | 三部分互通 | ISP 内部 **OSPF 单区域**，总部与分支以静态路由 + 默认路由接入 | AR1/AR2/AR3 |
@@ -96,7 +96,41 @@
 | T11 | 分支网关在路由器 | PC3 `tracert` | 通过（第一跳 192.168.110.254） |
 | T12 | ISP 路由收敛 | `display ip routing-table` | 通过（学到双向公网网段） |
 
-实施过程中真实踩到的 4 个配置坑（VLAN 未创建、MSTP 域不一致导致绕行、子接口缺 ARP 广播、聚合模式不一致）及其排查过程，记录在 **[docs/排错记录.md](docs/排错记录.md)**。
+实施过程中真实踩到的 **8 个配置坑**（VLAN 未创建、MSTP 域不一致导致绕行、子接口缺 ARP 广播、聚合模式不一致、防火墙接口名、AR 三层聚合、USG 无源 NAT、save 交互差异）及其排查过程，记录在 **[docs/排错记录.md](docs/排错记录.md)**。
+
+### 5.1 实测状态（2026-10-23，真实设备回显）
+
+本仓库的配置已在 eNSP 中实际下发到 13 台网络设备并保存，关键项实测结果：
+
+| 项目 | 实测结果 | 依据 |
+|---|---|---|
+| VRRP 主备 | LSW3 为 VLAN10 Master（优先级 120）、VLAN20 Backup；LSW4 相反 | `display vrrp` |
+| VRRP 接口跟踪 | `Track IF: GE0/0/1  Priority reduced: 30`，IF state UP | `display vrrp` |
+| MSTP 与网关对齐 | 实例1 根桥在 LSW3（端口均 DESI/FORWARDING）；实例2 有一条 ALTE 阻塞 | `display stp instance x brief` |
+| 核心静态路由 | 主用 4 条（60）、备用 3 条（70，Inactive） | `display ip routing-table protocol static` |
+| 分支链路聚合 | Eth-Trunk1 `up`，两成员口 `Selected` | `display eth-trunk 1` |
+| 分支子接口网关 | Eth-Trunk1.10/20/30 均 `up/up` | `display ip interface brief` |
+| 分支网关连通性 | AR4 ping 192.168.110.10 通（0% 丢包） | `ping` |
+| 总部服务器可达 | LSW2 ping 192.168.40.10 通 | `ping` |
+| 公网服务器区可达 | AR2 ping 192.168.200.100 通，且有 192.168.0.0/16 回程路由 | `ping` / 路由表 |
+| NAT Server 发布 | FW1 已下发 `nat server 0 protocol tcp global 200.1.1.10 www inside 192.168.40.10 www` | `display current-configuration` |
+| 终端 DHCP 取址 | **未通过**：DHCP 中继统计为 0，说明 PC1/PC2 未发起请求（需在 GUI 里把 PC 的 IPv4 选为 DHCP） | `display dhcp relay statistics` |
+
+全部原始回显已存档：**[docs/验证输出.md](docs/验证输出.md)**（283 行，脚本经控制台端口采集，未改写）。
+
+### 5.2 证据图
+
+![拓扑结构示意](docs/screenshots/01-topology-schematic.png)
+
+![LSW3 VRRP 主备](docs/screenshots/02-vrrp-master.png)
+![DHCP 地址池](docs/screenshots/03-dhcp-pool.png)
+![AR4 链路聚合](docs/screenshots/04-eth-trunk.png)
+![AR4 网关连通性](docs/screenshots/05-ping.png)
+![FW1 NAT Server](docs/screenshots/06-nat-server.png)
+
+> 说明：`01` 是拓扑结构示意图（eNSP 画布窗口被其他窗口遮挡，未取到干净截图）；
+> `02`–`06` 是**设备真实回显**，由脚本通过 eNSP 控制台端口采集后按终端样式排版，
+> 文字未作任何改动，原始文本见 docs/验证输出.md。
 
 ---
 
@@ -112,8 +146,9 @@ hq-branch-campus-network/
 │   └── DHCP.txt AC1.txt
 ├── docs/
 │   ├── 网络规划与验证说明.md    # 连接表、地址规划、需求对应、验证清单
-│   ├── 排错记录.md              # 4 个真实故障的现象→定位→根因→解决
-│   └── screenshots/             # eNSP 运行截图（待补充）
+│   ├── 排错记录.md              # 8 个真实故障的现象→定位→根因→解决
+│   ├── 验证输出.md              # 10 项验证的真实设备回显（脚本采集）
+│   └── screenshots/             # 拓扑示意图 + 5 张回显证据图
 ├── figures/
 │   └── topology.png             # 总体拓扑示意图
 ├── tools/                       # 拓扑与配置的生成/校验脚本（可选，见下）
