@@ -127,6 +127,7 @@
 
 ![LSW3 VRRP 主备](docs/screenshots/02-vrrp-master.png)
 ![DHCP 地址池](docs/screenshots/03-dhcp-pool.png)
+![DHCP 租约与终端连通性](docs/screenshots/03b-dhcp-lease.png)
 ![AR4 链路聚合](docs/screenshots/04-eth-trunk.png)
 ![AR4 网关连通性](docs/screenshots/05-ping.png)
 ![FW1 NAT Server](docs/screenshots/06-nat-server.png)
