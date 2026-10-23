@@ -4,7 +4,8 @@
 
 | 文件 | 性质 | 说明 |
 |---|---|---|
-| `01-topology-schematic.png` | 示意图 | 按拓扑绘制的结构图，用于说明连接关系（**不是** eNSP 截图） |
+| `00-topology-schematic.png` | 示意图 | 按规划绘制的结构图，用于说明连接关系（**不是** eNSP 截图） |
+| `01-ensp-canvas.png` | **真实截图** | eNSP 画布，24 台设备全部启动，链路端点全绿 |
 | `02-vrrp-master.png` | **真实回显** | LSW3 上 `display vrrp` 的原始输出 |
 | `03-dhcp-pool.png` | **真实回显** | DHCP 服务器上 `display ip pool` 的输出 |
 | `04-eth-trunk.png` | **真实回显** | AR4 上 `display eth-trunk 1` 与子接口状态 |

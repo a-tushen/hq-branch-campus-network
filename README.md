@@ -120,7 +120,9 @@
 
 ### 5.2 证据图
 
-![拓扑结构示意](docs/screenshots/01-topology-schematic.png)
+![eNSP 画布：24 台设备已启动，链路端点全绿](docs/screenshots/01-ensp-canvas.png)
+
+> 另有按规划绘制的结构示意图，可对照查看：[`00-topology-schematic.png`](docs/screenshots/00-topology-schematic.png)
 
 ![LSW3 VRRP 主备](docs/screenshots/02-vrrp-master.png)
 ![DHCP 地址池](docs/screenshots/03-dhcp-pool.png)
@@ -128,9 +130,9 @@
 ![AR4 网关连通性](docs/screenshots/05-ping.png)
 ![FW1 NAT Server](docs/screenshots/06-nat-server.png)
 
-> 说明：`01` 是拓扑结构示意图（eNSP 画布窗口被其他窗口遮挡，未取到干净截图）；
-> `02`–`06` 是**设备真实回显**，由脚本通过 eNSP 控制台端口采集后按终端样式排版，
-> 文字未作任何改动，原始文本见 docs/验证输出.md。
+> 说明：`01` 是 eNSP 画布的真实截图（24 台设备全部启动，链路端点显示为绿色）；
+> `02`–`06` 是**设备真实回显**，由脚本通过 eNSP 控制台端口（TCP 2000–2013）采集后
+> 按终端样式排版，文字未作任何改动，原始文本见 docs/验证输出.md。
 
 ---
 
@@ -148,7 +150,7 @@ hq-branch-campus-network/
 │   ├── 网络规划与验证说明.md    # 连接表、地址规划、需求对应、验证清单
 │   ├── 排错记录.md              # 8 个真实故障的现象→定位→根因→解决
 │   ├── 验证输出.md              # 10 项验证的真实设备回显（脚本采集）
-│   └── screenshots/             # 拓扑示意图 + 5 张回显证据图
+│   └── screenshots/             # eNSP 画布截图 + 拓扑示意图 + 5 张回显证据图
 ├── figures/
 │   └── topology.png             # 总体拓扑示意图
 ├── tools/                       # 拓扑与配置的生成/校验脚本（可选，见下）
