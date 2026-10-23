@@ -114,9 +114,10 @@
 | 总部服务器可达 | LSW2 ping 192.168.40.10 通 | `ping` |
 | 公网服务器区可达 | AR2 ping 192.168.200.100 通，且有 192.168.0.0/16 回程路由 | `ping` / 路由表 |
 | NAT Server 发布 | FW1 已下发 `nat server 0 protocol tcp global 200.1.1.10 www inside 192.168.40.10 www` | `display current-configuration` |
-| 终端 DHCP 取址 | **未通过**：DHCP 中继统计为 0，说明 PC1/PC2 未发起请求（需在 GUI 里把 PC 的 IPv4 选为 DHCP） | `display dhcp relay statistics` |
+| 终端 DHCP 取址 | PC1 经中继取得 **192.168.10.251**，网关 ARP 可见该租约且 ping 通（0% 丢包） | `display arp` / `ping` |
+| VLAN20 终端 | **待复测**：LSW4 中继收到 3×DISCOVER、3×REQUEST，但 `sent to servers` 为 0 | `display dhcp relay statistics` |
 
-全部原始回显已存档：**[docs/验证输出.md](docs/验证输出.md)**（283 行，脚本经控制台端口采集，未改写）。
+全部原始回显已存档：**[docs/验证输出.md](docs/验证输出.md)**（脚本经控制台端口采集，未改写）。
 
 ### 5.2 证据图
 
