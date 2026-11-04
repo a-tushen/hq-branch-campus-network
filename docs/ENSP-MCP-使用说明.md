@@ -87,10 +87,36 @@ uv run python -m ensp_mcp_server.server
 这带来一个实用结论：**`.topo` 里的 `com_port` 是稳定的**，
 写自动化脚本可以直接照它取端口，不必每次打开 eNSP 手工查串口号。
 
+### 5.1 Web UI 与拓扑同步（已跑通）
+
+服务必须在**真实终端**里启动，不能放到没有 stdin 的后台任务里——
+stdio 传输层读不到输入会立刻退出，Web UI 也随之关闭：
+
+```powershell
+cd ENSP-MCP
+.\.venv\Scripts\python.exe -m ensp_mcp_server.server
+```
+
+启动后实测：
+
+| 项目 | 结果 |
+|---|---|
+| Web UI | `http://127.0.0.1:18080/index.html` 返回 **HTTP 200**，页面标题 `ENSP ops` |
+| 上传接口 | `POST /api/topology`，请求体为 `{devices:[{name,comPort}], links:[...]}` |
+| 上传结果 | `ok=true`，快照写入 `<插件目录>/topology.json` |
+| 设备注册 | **created=24**（含端口 0 的终端设备），`GET /api/devices` 可读到带端口的注册表 |
+
+也就是说，即使 eNSP 没开，也能先把拓扑"喂"给插件，
+让它的设备注册表就绪；等 eNSP 启动后直接执行业务命令即可。
+
+> 提示：`GET /api/topology` 在未上传前返回 404 属正常，它只在有快照后才有内容。
+
 ## 6. 局限
 
 - **需要 MCP 客户端**才能发挥全部能力（Claude Desktop / Claude Code / Cursor 等）；
-  没有客户端时只能当普通的拓扑解析库用。
+  没有客户端时只能当普通的拓扑解析库用，或直接用它的 Web UI 上传拓扑。
+- **服务要跑在真实终端里**：stdio 传输层读不到 stdin 会立即退出，Web UI 一起没。
+  用 `Start-Job` 之类没有输入流的后台方式启动会看不到 18080。
 - **不能操作终端设备**：PC 的 `ipconfig`、Client 的浏览器访问都在 GUI 里，
   插件和任何控制台方案都碰不到，这部分只能人工截图。
 - **不解决镜像差异**：本实验遇到的 USG5500 无源 NAT、AR2220 不支持 `portswitch`
