@@ -1,0 +1,536 @@
+{
+  "source_topo": "企业总部—ISP—分支双核心高可用综合实验.topo",
+  "parsed_by": "ENSP-MCP discover_topology internals",
+  "device_count": 24,
+  "link_count": 24,
+  "devices": [
+    {
+      "name": "AC1",
+      "model": "AC6005",
+      "type": "unknown",
+      "com_port": 2003,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 8)"
+      ]
+    },
+    {
+      "name": "AP1",
+      "model": "AP6050",
+      "type": "ap",
+      "com_port": 2007,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 2)"
+      ]
+    },
+    {
+      "name": "AR1",
+      "model": "AR2220",
+      "type": "router",
+      "com_port": 2008,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 1)",
+        "slot17 / GE (数量: 2)",
+        "slot17 / Serial (数量: 4)"
+      ]
+    },
+    {
+      "name": "AR2",
+      "model": "AR2220",
+      "type": "router",
+      "com_port": 2009,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 1)",
+        "slot17 / GE (数量: 2)",
+        "slot17 / Serial (数量: 4)"
+      ]
+    },
+    {
+      "name": "AR3",
+      "model": "AR2220",
+      "type": "router",
+      "com_port": 2010,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 1)",
+        "slot17 / GE (数量: 2)",
+        "slot17 / Serial (数量: 4)"
+      ]
+    },
+    {
+      "name": "AR4",
+      "model": "AR2220",
+      "type": "router",
+      "com_port": 2012,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 1)",
+        "slot17 / GE (数量: 2)",
+        "slot17 / Serial (数量: 4)"
+      ]
+    },
+    {
+      "name": "Client1",
+      "model": "Client",
+      "type": "client",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": [
+        "slot17 / Ethernet (数量: 1)"
+      ]
+    },
+    {
+      "name": "Client2",
+      "model": "Client",
+      "type": "client",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": [
+        "slot17 / Ethernet (数量: 1)"
+      ]
+    },
+    {
+      "name": "DHCP",
+      "model": "AR2220",
+      "type": "router",
+      "com_port": 2002,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 1)",
+        "slot17 / GE (数量: 2)",
+        "slot17 / Serial (数量: 4)"
+      ]
+    },
+    {
+      "name": "FW1",
+      "model": "USG5500",
+      "type": "firewall",
+      "com_port": 2000,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 9)"
+      ]
+    },
+    {
+      "name": "LSW1",
+      "model": "S5700",
+      "type": "switch",
+      "com_port": 2006,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 24)"
+      ]
+    },
+    {
+      "name": "LSW2",
+      "model": "S5700",
+      "type": "switch",
+      "com_port": 2001,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 24)"
+      ]
+    },
+    {
+      "name": "LSW3",
+      "model": "S5700",
+      "type": "switch",
+      "com_port": 2004,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 24)"
+      ]
+    },
+    {
+      "name": "LSW4",
+      "model": "S5700",
+      "type": "switch",
+      "com_port": 2005,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 24)"
+      ]
+    },
+    {
+      "name": "LSW5",
+      "model": "S5700",
+      "type": "switch",
+      "com_port": 2013,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 24)"
+      ]
+    },
+    {
+      "name": "LSW6",
+      "model": "S5700",
+      "type": "switch",
+      "com_port": 2011,
+      "has_cli": true,
+      "interfaces": [
+        "slot17 / GE (数量: 24)"
+      ]
+    },
+    {
+      "name": "PC1",
+      "model": "PC",
+      "type": "pc",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": [
+        "slot17 / Ethernet (数量: 1)"
+      ]
+    },
+    {
+      "name": "PC2",
+      "model": "PC",
+      "type": "pc",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": [
+        "slot17 / Ethernet (数量: 1)"
+      ]
+    },
+    {
+      "name": "PC3",
+      "model": "PC",
+      "type": "pc",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": [
+        "slot17 / Ethernet (数量: 1)"
+      ]
+    },
+    {
+      "name": "PC4",
+      "model": "PC",
+      "type": "pc",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": [
+        "slot17 / Ethernet (数量: 1)"
+      ]
+    },
+    {
+      "name": "PC5",
+      "model": "PC",
+      "type": "pc",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": [
+        "slot17 / Ethernet (数量: 1)"
+      ]
+    },
+    {
+      "name": "STA1",
+      "model": "STA",
+      "type": "switch",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": []
+    },
+    {
+      "name": "Server1",
+      "model": "Server",
+      "type": "server",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": [
+        "slot17 / Ethernet (数量: 1)"
+      ]
+    },
+    {
+      "name": "Server2",
+      "model": "Server",
+      "type": "server",
+      "com_port": null,
+      "has_cli": false,
+      "interfaces": [
+        "slot17 / Ethernet (数量: 1)"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "src": "FW1",
+      "dst": "LSW2",
+      "src_index": "0",
+      "dst_index": "4",
+      "src_if": "GigabitEthernet0/0/0",
+      "dst_if": "GigabitEthernet0/0/5"
+    },
+    {
+      "src": "LSW2",
+      "dst": "DHCP",
+      "src_index": "0",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/1",
+      "dst_if": "GigabitEthernet0/0/0"
+    },
+    {
+      "src": "LSW2",
+      "dst": "AC1",
+      "src_index": "1",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/2",
+      "dst_if": "index=0"
+    },
+    {
+      "src": "LSW2",
+      "dst": "Server1",
+      "src_index": "2",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/3",
+      "dst_if": "Ethernet0/0/0"
+    },
+    {
+      "src": "LSW2",
+      "dst": "LSW3",
+      "src_index": "3",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/4",
+      "dst_if": "GigabitEthernet0/0/1"
+    },
+    {
+      "src": "LSW2",
+      "dst": "LSW4",
+      "src_index": "5",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/6",
+      "dst_if": "GigabitEthernet0/0/1"
+    },
+    {
+      "src": "LSW3",
+      "dst": "LSW1",
+      "src_index": "1",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/2",
+      "dst_if": "GigabitEthernet0/0/1"
+    },
+    {
+      "src": "LSW4",
+      "dst": "LSW1",
+      "src_index": "1",
+      "dst_index": "1",
+      "src_if": "GigabitEthernet0/0/2",
+      "dst_if": "GigabitEthernet0/0/2"
+    },
+    {
+      "src": "LSW1",
+      "dst": "PC1",
+      "src_index": "2",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/3",
+      "dst_if": "Ethernet0/0/0"
+    },
+    {
+      "src": "LSW1",
+      "dst": "PC2",
+      "src_index": "3",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/4",
+      "dst_if": "Ethernet0/0/0"
+    },
+    {
+      "src": "LSW1",
+      "dst": "AP1",
+      "src_index": "4",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/5",
+      "dst_if": "GigabitEthernet0/0/1"
+    },
+    {
+      "src": "FW1",
+      "dst": "AR1",
+      "src_index": "1",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/1",
+      "dst_if": "GigabitEthernet0/0/0"
+    },
+    {
+      "src": "AR1",
+      "dst": "AR2",
+      "src_index": "1",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/1",
+      "dst_if": "GigabitEthernet0/0/0"
+    },
+    {
+      "src": "AR2",
+      "dst": "AR3",
+      "src_index": "1",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/1",
+      "dst_if": "GigabitEthernet0/0/0"
+    },
+    {
+      "src": "AR2",
+      "dst": "LSW6",
+      "src_index": "2",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/2",
+      "dst_if": "GigabitEthernet0/0/1"
+    },
+    {
+      "src": "LSW6",
+      "dst": "PC5",
+      "src_index": "1",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/2",
+      "dst_if": "Ethernet0/0/0"
+    },
+    {
+      "src": "LSW6",
+      "dst": "Server2",
+      "src_index": "2",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/3",
+      "dst_if": "Ethernet0/0/0"
+    },
+    {
+      "src": "LSW6",
+      "dst": "Client2",
+      "src_index": "3",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/4",
+      "dst_if": "Ethernet0/0/0"
+    },
+    {
+      "src": "AR3",
+      "dst": "AR4",
+      "src_index": "2",
+      "dst_index": "1",
+      "src_if": "GigabitEthernet0/0/2",
+      "dst_if": "GigabitEthernet0/0/1"
+    },
+    {
+      "src": "AR4",
+      "dst": "LSW5",
+      "src_index": "0",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/0",
+      "dst_if": "GigabitEthernet0/0/1"
+    },
+    {
+      "src": "AR4",
+      "dst": "LSW5",
+      "src_index": "2",
+      "dst_index": "1",
+      "src_if": "GigabitEthernet0/0/2",
+      "dst_if": "GigabitEthernet0/0/2"
+    },
+    {
+      "src": "LSW5",
+      "dst": "PC3",
+      "src_index": "2",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/3",
+      "dst_if": "Ethernet0/0/0"
+    },
+    {
+      "src": "LSW5",
+      "dst": "PC4",
+      "src_index": "3",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/4",
+      "dst_if": "Ethernet0/0/0"
+    },
+    {
+      "src": "LSW5",
+      "dst": "Client1",
+      "src_index": "4",
+      "dst_index": "0",
+      "src_if": "GigabitEthernet0/0/5",
+      "dst_if": "Ethernet0/0/0"
+    }
+  ],
+  "port_crosscheck": [
+    {
+      "name": "LSW2",
+      "topo_port": 2001,
+      "live_port": 2001,
+      "match": true
+    },
+    {
+      "name": "LSW3",
+      "topo_port": 2004,
+      "live_port": 2004,
+      "match": true
+    },
+    {
+      "name": "LSW4",
+      "topo_port": 2005,
+      "live_port": 2005,
+      "match": true
+    },
+    {
+      "name": "LSW1",
+      "topo_port": 2006,
+      "live_port": 2006,
+      "match": true
+    },
+    {
+      "name": "AP1",
+      "topo_port": 2007,
+      "live_port": 2007,
+      "match": true
+    },
+    {
+      "name": "DHCP",
+      "topo_port": 2002,
+      "live_port": 2002,
+      "match": true
+    },
+    {
+      "name": "AC1",
+      "topo_port": 2003,
+      "live_port": 2003,
+      "match": true
+    },
+    {
+      "name": "FW1",
+      "topo_port": 2000,
+      "live_port": 2000,
+      "match": true
+    },
+    {
+      "name": "AR1",
+      "topo_port": 2008,
+      "live_port": 2008,
+      "match": true
+    },
+    {
+      "name": "AR2",
+      "topo_port": 2009,
+      "live_port": 2009,
+      "match": true
+    },
+    {
+      "name": "LSW6",
+      "topo_port": 2011,
+      "live_port": 2011,
+      "match": true
+    },
+    {
+      "name": "AR3",
+      "topo_port": 2010,
+      "live_port": 2010,
+      "match": true
+    },
+    {
+      "name": "AR4",
+      "topo_port": 2012,
+      "live_port": 2012,
+      "match": true
+    },
+    {
+      "name": "LSW5",
+      "topo_port": 2013,
+      "live_port": 2013,
+      "match": true
+    }
+  ]
+}
